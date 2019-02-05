@@ -7,6 +7,10 @@
 	<artifactId>Training</artifactId>
 	<version>1.0</version>
 	<packaging>pom</packaging>
+	
+	<modules>
+	<module>struts-app</module>
+	</modules>
 
 	<name>Training</name>
 	<url>http://maven.apache.org</url>
