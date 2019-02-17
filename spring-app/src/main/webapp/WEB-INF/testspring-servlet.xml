@@ -7,15 +7,15 @@
         http://www.springframework.org/schema/beans     
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc 
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+         http://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd">
- 
+
 	<mvc:annotation-driven />
 	<context:component-scan
-		base-package="com.db.spring.app.controller" />
+		base-package="com.db.spring.app" />
 	<mvc:default-servlet-handler />
- 
+
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass"
@@ -23,18 +23,34 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
-	<bean id="contactDAO" class="com.db.spring.app.jdbc.ContactDAOImpl">
+
+
+
+	<bean id="loggingAspectBean"
+		class="com.db.spring.app.aop.TimeLoggingAspect" />
+		
+		<bean 
+		class="com.db.spring.app.aop.AspectConfig" />
+
+	<bean id="userService"
+		class="com.db.spring.app.service.UserServiceImpl">
+		<property name="contactDAO" ref="contactDAO" />
+	</bean>
+
+	<bean id="contactDAO"
+		class="com.db.spring.app.jdbc.ContactDAOImpl">
 		<constructor-arg name="dataSource" ref="dataSource" />
 	</bean>
-	
-	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/testdb" />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/testdb" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
-  
+
 </beans>
  

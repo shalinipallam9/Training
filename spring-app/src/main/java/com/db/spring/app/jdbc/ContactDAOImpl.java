@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
@@ -15,6 +17,7 @@ import com.db.spring.app.model.Contact;
 
 public class ContactDAOImpl implements ContactDAO {
 
+	private static final Logger logger = LogManager.getLogger(ContactDAOImpl.class);
 	private JdbcTemplate jdbcTemplate;
 
 	public ContactDAOImpl(DataSource dataSource) {
@@ -22,6 +25,9 @@ public class ContactDAOImpl implements ContactDAO {
 	}
 
 	public void saveOrUpdate(Contact contact) {
+		 logger.debug("Debug log message");
+	        logger.info("Info log message");
+	        logger.error("Error log message");
 		if (contact.getId() > 0) {
 			// update
 			String sql = "UPDATE contact SET name=?, email=?, address=?, " + "telephone=? WHERE contact_id=?";

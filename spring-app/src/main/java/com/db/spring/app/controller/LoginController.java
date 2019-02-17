@@ -21,11 +21,11 @@ public class LoginController {
 		if (loginBean != null && loginBean.getUserName() != null & loginBean.getPassword() != null) {
 			if (loginBean.getUserName().equals("sri") && loginBean.getPassword().equals("sai")) {
 				mav = new ModelAndView("redirect:/home");
-				model.addAttribute("msg", "Login sucesss for : " + loginBean.getUserName());
+				model.addAttribute("msg", " : " + loginBean.getUserName());
 				return mav;
 			} else {
 				mav = new ModelAndView("login");
-				model.addAttribute("msg", "Login failed for : " + loginBean.getUserName());
+				model.addAttribute("msg", " : " + loginBean.getUserName());
 				return mav;
 			}
 		} else {

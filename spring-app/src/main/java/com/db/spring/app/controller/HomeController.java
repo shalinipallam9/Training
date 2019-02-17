@@ -14,16 +14,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.db.spring.app.jdbc.ContactDAO;
 import com.db.spring.app.model.Contact;
+import com.db.spring.app.service.UserService;
 
 @Controller
 public class HomeController {
 	
+		
 	@Autowired
-	ContactDAO contactDAO;
+	UserService userService;	
 	
 	@RequestMapping(value="/home",method = RequestMethod.GET)
 	public ModelAndView listContact(ModelAndView model) throws IOException{
-	    List<Contact> listContact = contactDAO.list();
+	    List<Contact> listContact = userService.getContactlist();
 	    model.addObject("listContact", listContact);
 	    model.setViewName("home");
 	 
@@ -40,21 +42,21 @@ public class HomeController {
 	
 	@RequestMapping(value = "/saveContact", method = RequestMethod.POST)
 	public ModelAndView saveContact(@ModelAttribute Contact contact) {
-	    contactDAO.saveOrUpdate(contact);
+		userService.saveOrUpdate(contact);
 	    return new ModelAndView("redirect:/home");
 	}
 	
 	@RequestMapping(value = "/deleteContact", method = RequestMethod.GET)
 	public ModelAndView deleteContact(HttpServletRequest request) {
 	    int contactId = Integer.parseInt(request.getParameter("id"));
-	    contactDAO.delete(contactId);
+	    userService.delete(contactId);
 	    return new ModelAndView("redirect:/home");
 	}
 	
 	@RequestMapping(value = "/editContact", method = RequestMethod.GET)
 	public ModelAndView editContact(HttpServletRequest request) {
 	    int contactId = Integer.parseInt(request.getParameter("id"));
-	    Contact contact = contactDAO.get(contactId);
+	    Contact contact = userService.get(contactId);
 	    ModelAndView model = new ModelAndView("ContactForm");
 	    model.addObject("contact", contact);
 	 
